@@ -17,7 +17,7 @@ const Navbar =()=> {
                 )}
                 {user && (
                     <div className="dropdown dropdown-end">
-                        <label tabIndex={0} className="btn btn-sm btn-outline rounded-full">{user.email}</label>
+                        <label tabIndex={0} className="btn btn-sm btn-outline bg-teal-400 rounded-full">{user.email}</label>
                         <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-white text-black rounded w-52 mt-2">
                             {user.role === "hr" ? (
                                 <>
