@@ -12,6 +12,7 @@ import EmployeeList from "../pages/hr/EmployeeList"
 import UpgradePackage from "../pages/hr/UpgradePackage"
 import Profile from "../pages/hr/ProfileHR"
 import ProfileHR from "../pages/hr/ProfileHR";
+import About from "../component/about/About";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         index:true,
         Component:Home
+      },
+      {
+        path:"/about",
+        Component:About
       },
       {
         path:"/login",
