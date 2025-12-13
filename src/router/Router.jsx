@@ -13,6 +13,7 @@ import UpgradePackage from "../pages/hr/UpgradePackage"
 import Profile from "../pages/hr/ProfileHR"
 import ProfileHR from "../pages/hr/ProfileHR";
 import About from "../component/about/About";
+import Support from "../component/Support/Support";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,11 @@ const router = createBrowserRouter([
       {
         path:"/about",
         Component:About
+      },
+      {
+        path:"/support",
+        Component:Support
+
       },
       {
         path:"/login",
