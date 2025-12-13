@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DeshboarEmployee = () => {
+const DeshboardEmployee = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const DeshboarEmployee = () => {
     );
 };
 
-export default DeshboarEmployee;
+export default DeshboardEmployee;

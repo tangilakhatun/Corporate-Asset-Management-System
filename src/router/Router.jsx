@@ -14,6 +14,11 @@ import Profile from "../pages/hr/ProfileHR"
 import ProfileHR from "../pages/hr/ProfileHR";
 import About from "../component/about/About";
 import Support from "../component/Support/Support";
+import DeshboardEmployee from "../pages/deshboardemployee/DeshboardEmployee";
+import MyAssets from "../pages/employee/MyAssets";
+import RequestAsset from "../pages/employee/RequestAsset";
+import MyTeam from "../pages/employee/MyTeam";
+import ProfileEmployee from "../pages/employee/ProfileEmployee";
 
 const router = createBrowserRouter([
   {
@@ -83,6 +88,30 @@ const router = createBrowserRouter([
       }
 
     ]
+  },
+  {
+path:"/dashboard/employee",
+element:<DeshboardEmployee></DeshboardEmployee>,
+children:[
+  {
+    path:"my-assets",
+    element:<MyAssets></MyAssets>
+
+  },
+  {
+    path:"request-asset",
+    element:<RequestAsset></RequestAsset>
+  },
+  {
+    path:"my-team",
+    element:<MyTeam></MyTeam>
+  },
+  {
+    path:"profile",
+    element:<ProfileEmployee></ProfileEmployee>
+  },
+  
+]
   }
 ]);
 export default router
