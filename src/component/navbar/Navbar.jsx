@@ -86,14 +86,25 @@ const Navbar = () => {
 
         {user && (
           <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-sm bg-gradient-to-r from-teal-500 to-cyan-500 text-white rounded-full flex items-center gap-2">
-              <LayoutDashboard size={18} /> Dashboard
-            </label>
+            <div className="dropdown dropdown-end">
+    <label
+      tabIndex={0}
+      className="btn btn-sm bg-transparent border-none text-black flex items-center gap-2 hover:bg-base-200"
+    >
+      {/* Avatar */}
+      <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center font-semibold text-black">
+        {user.name?.charAt(0).toUpperCase()}
+      </div>
+
+      {/* Name */}
+      <span className="text-black">{user.name}</span>
+    </label>
+  </div>
             <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-white text-black rounded w-52 mt-2" onClick={(e)=>e.stopPropagation()}>
               {user.role === "hr" ? (
-                <li><NavLink to="/dashboard/hr">HR Dashboard</NavLink></li>
+                <li><NavLink to="/dashboard/hr"> <LayoutDashboard size={18} /> Dashboard</NavLink></li>
               ) : (
-                <li><NavLink to="/dashboard/employee">Employee Dashboard</NavLink></li>
+                <li><NavLink to="/dashboard/employee"> <LayoutDashboard size={18} /> Dashboard</NavLink></li>
               )}
               <li><button onClick={logout} className="btn btn-sm btn-outline w-full text-left">Logout</button></li>
             </ul>
