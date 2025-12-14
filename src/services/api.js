@@ -47,5 +47,7 @@ export const requestAsset = (assetId, note) => api.post("/api/requests", { asset
 export const returnAsset = (assignedId) => api.put(`/api/assigned/${assignedId}/return`);
 export const getMyAssets = () => api.get("/api/assigned/my-assets");
 
+// Assets API
+export const getTopRequestedAssets = () => api.get("/api/assets/top-requested");
 
 export default api;

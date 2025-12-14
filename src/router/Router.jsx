@@ -20,6 +20,7 @@ import RequestAsset from "../pages/employee/RequestAsset";
 import MyTeam from "../pages/employee/MyTeam";
 import ProfileEmployee from "../pages/employee/ProfileEmployee";
 import EmployeeOverview from "../pages/employee/EmployeeOverview";
+import HRHome from "../pages/hr/HRHome";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
     path:"/dashboard/hr",
     element:<DeshboardHR></DeshboardHR>,
     children:[
+      {
+        index:true,
+        element:<HRHome></HRHome>
+      },
       {
         path:"assets",
         element:<HAssets></HAssets>
