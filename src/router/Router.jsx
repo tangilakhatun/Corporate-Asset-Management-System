@@ -59,7 +59,7 @@ const router = createBrowserRouter([
     
   },
   {
-    path:"/deshboard/hr",
+    path:"/dashboard/hr",
     element:<DeshboardHR></DeshboardHR>,
     children:[
       {
