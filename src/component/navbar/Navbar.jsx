@@ -1,7 +1,7 @@
 import { NavLink } from "react-router";
 import { useAuth } from "../../context/AuthContext";
 import { useState } from "react";
-import { Sun, Moon, Menu, X, LayoutDashboard, Home, Info, HelpCircle } from "lucide-react";
+import { Sun, Moon, Menu, X, LayoutDashboard, Home, Info, HelpCircle, LogOut } from "lucide-react";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -106,7 +106,7 @@ const Navbar = () => {
               ) : (
                 <li><NavLink to="/dashboard/employee"> <LayoutDashboard size={18} /> Dashboard</NavLink></li>
               )}
-              <li><button onClick={logout} className="btn btn-sm btn-outline w-full text-left">Logout</button></li>
+              <li><button onClick={logout} className="btn btn-sm btn-outline bg-gradient-to-r from-indigo-500 to-cyan-500 text-white border-none w-full text-left"><LogOut size={18}></LogOut> Logout</button></li>
             </ul>
           </div>
         )}
@@ -163,7 +163,7 @@ const Navbar = () => {
               ) : (
                 <NavLink to="/dashboard/employee" className="btn bg-gradient-to-r from-indigo-500 to-cyan-500 text-white border-none" onClick={() => setMenuOpen(false)}>Dashboard</NavLink>
               )}
-              <button onClick={logout} className="btn btn-outline">Logout</button>
+              <button onClick={logout} className="btn bg-gradient-to-r from-indigo-500 to-cyan-500 text-white border-none "> <LogOut size={18}></LogOut>Logout</button>
             </>
           )}
         </div>
