@@ -50,4 +50,8 @@ export const getMyAssets = () => api.get("/api/assigned/my-assets");
 // Assets API
 export const getTopRequestedAssets = () => api.get("/api/assets/top-requested");
 
+// Get Employee
+export const getMyTeam = () => api.get("/api/employee/my-team");
+
+
 export default api;

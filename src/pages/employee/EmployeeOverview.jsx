@@ -31,7 +31,7 @@ const EmployeeOverview = () => {
   }, []);
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 ">
       {/* WELCOME */}
       <div className="bg-base-100 p-8 rounded-2xl shadow">
         <div className="flex items-center gap-3">

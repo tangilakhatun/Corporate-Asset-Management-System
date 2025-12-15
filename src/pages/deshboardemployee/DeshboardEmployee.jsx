@@ -51,9 +51,9 @@ const DeshboardEmployee = () => {
           <div className="avatar">
             <div className="w-9 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
               <img
-                src={user?.photoURL || "https://i.ibb.co/5GzXkwq/user.png"}
-                alt="profile"
-              />
+  src={user?.profileImage || "https://i.ibb.co/5GzXkwq/user.png"}
+  alt="profile"
+/>
             </div>
           </div>
 

@@ -92,9 +92,13 @@ const Navbar = () => {
       className="btn btn-sm bg-transparent border-none text-black flex items-center gap-2 hover:bg-base-200"
     >
       {/* Avatar */}
-      <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center font-semibold text-black">
-        {user.name?.charAt(0).toUpperCase()}
-      </div>
+      <div className="w-8 h-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 overflow-hidden">
+  <img
+    src={user?.profileImage || "https://i.ibb.co/5GzXkwq/user.png"}
+    alt="profile"
+    className="w-full h-full object-cover"
+  />
+</div>
 
       {/* Name */}
       <span className="text-black">{user.name}</span>
