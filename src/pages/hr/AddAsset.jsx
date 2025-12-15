@@ -37,6 +37,7 @@ const AddAsset = () => {
             <input
               type="text"
               name="productName"
+              placeholder="Product Name"
               value={formData.productName}
               onChange={handleChange}
               required
@@ -49,6 +50,7 @@ const AddAsset = () => {
             <input
               type="text"
               name="productImage"
+              placeholder="Product Image URL"
               value={formData.productImage}
               onChange={handleChange}
               required
