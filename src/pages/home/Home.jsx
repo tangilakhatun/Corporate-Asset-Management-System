@@ -502,62 +502,7 @@ flex items-center justify-center shadow-lg">
 
 
 
-{/* FAQ */}
-<section className="bg-gradient-to-b from-base-200 to-base-100 py-20">
-  <div className="max-w-5xl mx-auto px-6">
-    
-    
-    <div className="text-center mb-14">
-      <h2 className="text-4xl font-extrabold text-base-content mb-3">
-        Frequently Asked Questions
-      </h2>
-      <p className="text-base-content/70 max-w-xl mx-auto">
-        Everything you need to know about AssetVerse and how it works
-      </p>
-    </div>
 
-    
-    <div className="space-y-6">
-      
-      <div className="collapse collapse-arrow bg-base-100 rounded-2xl shadow-md hover:shadow-xl transition">
-        <input type="checkbox" />
-        <div className="collapse-title text-lg font-semibold flex items-center gap-3">
-          <span className="text-primary text-xl">🔒</span>
-          Is AssetVerse secure?
-        </div>
-        <div className="collapse-content text-base-content/80 leading-relaxed">
-          Yes, AssetVerse uses secure authentication, role-based access control,
-          and best security practices to protect your data.
-        </div>
-      </div>
-
-      <div className="collapse collapse-arrow bg-base-100 rounded-2xl shadow-md hover:shadow-xl transition">
-        <input type="checkbox" />
-        <div className="collapse-title text-lg font-semibold flex items-center gap-3">
-          <span className="text-primary text-xl">⬆️</span>
-          Can I upgrade packages later?
-        </div>
-        <div className="collapse-content text-base-content/80 leading-relaxed">
-          Absolutely! You can upgrade or change your package anytime from your
-          dashboard without losing existing data.
-        </div>
-      </div>
-
-      <div className="collapse collapse-arrow bg-base-100 rounded-2xl shadow-md hover:shadow-xl transition">
-        <input type="checkbox" />
-        <div className="collapse-title text-lg font-semibold flex items-center gap-3">
-          <span className="text-primary text-xl">💼</span>
-          Is AssetVerse suitable for small businesses?
-        </div>
-        <div className="collapse-content text-base-content/80 leading-relaxed">
-          Yes, AssetVerse is designed to scale—from small teams to large
-          enterprises—so you only pay for what you need.
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
 {/* Contact CTA  */}
 
 
@@ -619,7 +564,62 @@ flex items-center justify-center shadow-lg">
 </section>
 
 
+{/* FAQ */}
+<section className="bg-gradient-to-b from-base-200 to-base-100 py-20">
+  <div className="max-w-5xl mx-auto px-6">
+    
+    
+    <div className="text-center mb-14">
+      <h2 className="text-4xl font-extrabold text-base-content mb-3">
+        Frequently Asked Questions
+      </h2>
+      <p className="text-base-content/70 max-w-xl mx-auto">
+        Everything you need to know about AssetVerse and how it works
+      </p>
+    </div>
 
+    
+    <div className="space-y-6">
+      
+      <div className="collapse collapse-arrow bg-base-100 rounded-2xl shadow-md hover:shadow-xl transition">
+        <input type="checkbox" />
+        <div className="collapse-title text-lg font-semibold flex items-center gap-3">
+          <span className="text-primary text-xl">🔒</span>
+          Is AssetVerse secure?
+        </div>
+        <div className="collapse-content text-base-content/80 leading-relaxed">
+          Yes, AssetVerse uses secure authentication, role-based access control,
+          and best security practices to protect your data.
+        </div>
+      </div>
+
+      <div className="collapse collapse-arrow bg-base-100 rounded-2xl shadow-md hover:shadow-xl transition">
+        <input type="checkbox" />
+        <div className="collapse-title text-lg font-semibold flex items-center gap-3">
+          <span className="text-primary text-xl">⬆️</span>
+          Can I upgrade packages later?
+        </div>
+        <div className="collapse-content text-base-content/80 leading-relaxed">
+          Absolutely! You can upgrade or change your package anytime from your
+          dashboard without losing existing data.
+        </div>
+      </div>
+
+      <div className="collapse collapse-arrow bg-base-100 rounded-2xl shadow-md hover:shadow-xl transition">
+        <input type="checkbox" />
+        <div className="collapse-title text-lg font-semibold flex items-center gap-3">
+          <span className="text-primary text-xl">💼</span>
+          Is AssetVerse suitable for small businesses?
+        </div>
+        <div className="collapse-content text-base-content/80 leading-relaxed">
+          Yes, AssetVerse is designed to scale—from small teams to large
+          enterprises—so you only pay for what you need.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
     </div>
   );
 };

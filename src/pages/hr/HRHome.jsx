@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAssets, deleteAsset, updateAsset } from "../../services/api";
+import { getAssets, deleteAsset, updateAsset, getTopRequestedAssets } from "../../services/api";
 import { getRequests } from "../../services/api";
 import toast from "react-hot-toast";
 import AssetCard from "../../component/assetcard/AssetCard";
@@ -50,7 +50,7 @@ const HRDashboardHome = () => {
         .slice(0, 5)
         .map(([name, requests]) => ({ name, requests }));
       setBarData(top5);
-
+     
     } catch (err) {
       toast.error("Failed to fetch charts ❌");
       console.log(err);

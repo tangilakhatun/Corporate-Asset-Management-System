@@ -8,6 +8,7 @@ const AddAsset = () => {
     productImage: "",
     productType: "Returnable",
     productQuantity: 1,
+     companyName: "",
   });
 
   const handleChange = (e) => {
@@ -20,7 +21,7 @@ const AddAsset = () => {
     try {
       await addAsset(formData);
       toast.success("Asset added successfully! 🎉");
-      setFormData({ productName: "", productImage: "", productType: "Returnable", productQuantity: 1 });
+      setFormData({ productName: "", productImage: "", productType: "Returnable", productQuantity: 1, companyName: "", });
     } catch (err) {
       toast.error("Failed to add asset ❌");
       console.log(err);
@@ -58,6 +59,19 @@ const AddAsset = () => {
             />
           </div>
 
+
+        <div>
+  <label className="block mb-1 font-medium">Company Name</label>
+  <input
+    type="text"
+    name="companyName"
+    placeholder="Company Name"
+    value={formData.companyName}
+    onChange={handleChange}
+    required
+    className="input input-bordered w-full"
+  />
+</div>
           <div>
             <label className="block mb-1 font-medium">Product Type</label>
             <select
