@@ -22,6 +22,7 @@ import ProfileEmployee from "../pages/employee/ProfileEmployee";
 import EmployeeOverview from "../pages/employee/EmployeeOverview";
 import HRHome from "../pages/hr/HRHome";
 import PrivateRoute from "./PrivateRoute";
+import ErrorPage from "../pages/notfound/ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -54,12 +55,18 @@ const router = createBrowserRouter([
         Component:RegisterEmployee
       }
       
+      
 
     ]
     
     
     
   },
+    {
+      path: "*",
+      Component:ErrorPage
+   },
+
   {
     path:"/dashboard/hr",
     element:(<PrivateRoute allowedRoles={["hr"]}><DeshboardHR></DeshboardHR></PrivateRoute>),
