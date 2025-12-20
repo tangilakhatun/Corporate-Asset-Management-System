@@ -1,10 +1,36 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { useAuth } from "../../context/AuthContext";
 import { useState } from "react";
-import { Sun, Moon, Menu, X, LayoutDashboard, Home, Info, HelpCircle, LogOut } from "lucide-react";
+import {
+  Sun,
+  Moon,
+  Menu,
+  X,
+  LayoutDashboard,
+  Home,
+  Info,
+  HelpCircle,
+  LogOut,
+} from "lucide-react";
+import toast from "react-hot-toast";
+
+
 
 const Navbar = () => {
+
+  const navigate = useNavigate();
   const { user, logout } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      await logout();          // Firebase signOut
+      toast.success("Logout successful! 🎉");
+      navigate("/");           // Redirect to home
+    } catch (err) {
+      toast.error("Logout failed. Try again.");
+    }
+  };
+  
   const [theme, setTheme] = useState("light");
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -20,97 +46,146 @@ const Navbar = () => {
     { name: "Support", path: "/support", icon: <HelpCircle size={18} /> },
   ];
 
-  const activeClass = "border-b-2 font-bold  bg-gradient-to-r from-indigo-500 to-cyan-400 bg-clip-text text-transparent border-cyan-400"; 
+  const activeClass =
+    "border-b-2 font-bold  bg-gradient-to-r from-indigo-500 to-cyan-400 bg-clip-text text-transparent border-cyan-400";
   return (
     <nav className="shadow-xl bg-base-200 w-full fixed top-0 left-0 z-50 backdrop-blur-md bg-opacity-70 border-b border-base-300 px-4 md:px-16 lg:px-60 py-4 flex justify-between items-center">
-
       {/* Logo */}
-      <NavLink to="/" className="font-bold  bg-gradient-to-r from-indigo-500 to-cyan-400 bg-clip-text text-transparent text-2xl">AssetVerse</NavLink>
+      <NavLink
+        to="/"
+        className="font-bold  bg-gradient-to-r from-indigo-500 to-cyan-400 bg-clip-text text-transparent text-2xl"
+      >
+        AssetVerse
+      </NavLink>
 
       {/* Center Links Desktop */}
       <div className="hidden md:flex items-center gap-6 font-semibold text-lg">
-  {links.map(link => (
-    <NavLink
-      key={link.name}
-      to={link.path}
-      className={({ isActive }) => {
-        const activeBase = isActive
-          ? "border-b-2 border-cyan-400 font-bold"
-          : "";
+        {links.map((link) => (
+          <NavLink
+            key={link.name}
+            to={link.path}
+            className={({ isActive }) => {
+              const activeBase = isActive
+                ? "border-b-2 border-cyan-400 font-bold"
+                : "";
 
-        const iconClass = isActive ? "text-cyan-400" : "";
-        const textClass = isActive
-          ? "bg-gradient-to-r from-indigo-500 to-cyan-400 bg-clip-text text-transparent"
-          : "";
-
-        return `flex items-center gap-1 px-4 py-2 transition-all duration-200 ${activeBase}`;
-      }}
-    >
-      {({ isActive }) => (
-        <>
-          {/* Icon */}
-          <span className={isActive ? "text-cyan-400" : ""}>
-            {link.icon}
-          </span>
-
-          {/* Label */}
-          <span
-            className={
-              isActive
+              const iconClass = isActive ? "text-cyan-400" : "";
+              const textClass = isActive
                 ? "bg-gradient-to-r from-indigo-500 to-cyan-400 bg-clip-text text-transparent"
-                : ""
-            }
-          >
-            {link.name}
-          </span>
-        </>
-      )}
-    </NavLink>
-  ))}
-</div>
+                : "";
 
+              return `flex items-center gap-1 px-4 py-2 transition-all duration-200 ${activeBase}`;
+            }}
+          >
+            {({ isActive }) => (
+              <>
+                {/* Icon */}
+                <span className={isActive ? "text-cyan-400" : ""}>
+                  {link.icon}
+                </span>
+
+                {/* Label */}
+                <span
+                  className={
+                    isActive
+                      ? "bg-gradient-to-r from-indigo-500 to-cyan-400 bg-clip-text text-transparent"
+                      : ""
+                  }
+                >
+                  {link.name}
+                </span>
+              </>
+            )}
+          </NavLink>
+        ))}
+      </div>
 
       {/* Right Section Desktop */}
       <div className="hidden md:flex items-center gap-4">
-        <button onClick={toggleTheme} className="btn btn-sm rounded-full border-none">
-          {theme === "light" ? <Sun size={18} className="text-black" /> : <Moon size={18} className="text-white" />}
+        <button
+          onClick={toggleTheme}
+          className="btn btn-sm rounded-full border-none"
+        >
+          {theme === "light" ? (
+            <Sun size={18} className="text-black" />
+          ) : (
+            <Moon size={18} className="text-white" />
+          )}
         </button>
 
         {!user && (
           <div className="flex items-center gap-3">
-            <NavLink to="/login" className="btn btn-sm bg-gradient-to-r from-indigo-500 to-cyan-400 text-white border-none shadow-md hover:shadow-xl transition-all duration-300">Login</NavLink>
-            <NavLink to="/register/employee" className="btn btn-sm bg-gradient-to-r from-indigo-500 to-cyan-400 text-white border-none shadow-md hover:shadow-xl transition-all duration-300">Join Employee</NavLink>
-            <NavLink to="/register/hr" className="btn btn-sm bg-gradient-to-r from-indigo-500 to-cyan-400 text-white border-none shadow-md hover:shadow-xl transition-all duration-300">Join HR</NavLink>
+            <NavLink
+              to="/login"
+              className="btn btn-sm bg-gradient-to-r from-indigo-500 to-cyan-400 text-white border-none shadow-md hover:shadow-xl transition-all duration-300"
+            >
+              Login
+            </NavLink>
+            <NavLink
+              to="/register/employee"
+              className="btn btn-sm bg-gradient-to-r from-indigo-500 to-cyan-400 text-white border-none shadow-md hover:shadow-xl transition-all duration-300"
+            >
+              Join Employee
+            </NavLink>
+            <NavLink
+              to="/register/hr"
+              className="btn btn-sm bg-gradient-to-r from-indigo-500 to-cyan-400 text-white border-none shadow-md hover:shadow-xl transition-all duration-300"
+            >
+              Join HR
+            </NavLink>
           </div>
         )}
 
         {user && (
           <div className="dropdown dropdown-end">
             <div className="dropdown dropdown-end">
-    <label
-      tabIndex={0}
-      className="btn btn-sm bg-transparent border-none text-black flex items-center gap-2 hover:bg-base-200"
-    >
-      {/* Avatar */}
-      <div className="w-8 h-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 overflow-hidden">
-  <img
-    src={user?.profileImage || "https://i.ibb.co/5GzXkwq/user.png"}
-    alt="profile"
-    className="w-full h-full object-cover"
-  />
-</div>
+              <label
+                tabIndex={0}
+                className="btn btn-sm bg-transparent border-none text-black flex items-center gap-2 hover:bg-base-200"
+              >
+                {/* Avatar */}
+                <div className="w-8 h-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 overflow-hidden">
+                  <img
+                    src={
+                      user?.profileImage || "https://i.ibb.co/5GzXkwq/user.png"
+                    }
+                    alt="profile"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
 
-      {/* Name */}
-      <span className="text-black">{user.name}</span>
-    </label>
-  </div>
-            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-white text-black rounded w-52 mt-2" onClick={(e)=>e.stopPropagation()}>
+                {/* Name */}
+                <span className="text-black">{user.name}</span>
+              </label>
+            </div>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu p-2 shadow bg-white text-black rounded w-52 mt-2"
+              onClick={(e) => e.stopPropagation()}
+            >
               {user.role === "hr" ? (
-                <li><NavLink to="/dashboard/hr"> <LayoutDashboard size={18} /> Dashboard</NavLink></li>
+                <li>
+                  <NavLink to="/dashboard/hr">
+                    {" "}
+                    <LayoutDashboard size={18} /> Dashboard
+                  </NavLink>
+                </li>
               ) : (
-                <li><NavLink to="/dashboard/employee"> <LayoutDashboard size={18} /> Dashboard</NavLink></li>
+                <li>
+                  <NavLink to="/dashboard/employee">
+                    {" "}
+                    <LayoutDashboard size={18} /> Dashboard
+                  </NavLink>
+                </li>
               )}
-              <li><button onClick={logout} className="btn btn-sm btn-outline bg-gradient-to-r from-indigo-500 to-cyan-500 text-white border-none w-full text-left"><LogOut size={18}></LogOut> Logout</button></li>
+              <li>
+                <button
+                  onClick={handleLogout}
+                  className="btn btn-sm btn-outline bg-gradient-to-r from-indigo-500 to-cyan-500 text-white border-none w-full text-left"
+                >
+                  <LogOut size={18}></LogOut> Logout
+                </button>
+              </li>
             </ul>
           </div>
         )}
@@ -124,50 +199,97 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="absolute top-16 left-0 w-full bg-base-200 p-2 md:p-4 flex flex-col gap-2 md:gap-4 shadow-lg md:hidden">
-          {links.map(link => (
-            <NavLink key={link.name} to={link.path} onClick={() => setMenuOpen(false)}>
-      {({ isActive }) => (
-        <div
-          className={`flex items-center gap-2 px-2 py-2 transition-all duration-200 ${
-            isActive ? "border-b-2 border-cyan-400 font-bold" : "hover:text-teal-500"
-          }`}
-        >
-          <span className={isActive ? "text-cyan-400" : ""}>{link.icon}</span>
+          {links.map((link) => (
+            <NavLink
+              key={link.name}
+              to={link.path}
+              onClick={() => setMenuOpen(false)}
+            >
+              {({ isActive }) => (
+                <div
+                  className={`flex items-center gap-2 px-2 py-2 transition-all duration-200 ${
+                    isActive
+                      ? "border-b-2 border-cyan-400 font-bold"
+                      : "hover:text-teal-500"
+                  }`}
+                >
+                  <span className={isActive ? "text-cyan-400" : ""}>
+                    {link.icon}
+                  </span>
 
-          <span
-            className={
-              isActive
-                ? "bg-gradient-to-r from-indigo-500 to-cyan-400 bg-clip-text text-transparent"
-                : ""
-            }
-          >
-            {link.name}
-          </span>
-        </div>
-      )}
-    </NavLink>
+                  <span
+                    className={
+                      isActive
+                        ? "bg-gradient-to-r from-indigo-500 to-cyan-400 bg-clip-text text-transparent"
+                        : ""
+                    }
+                  >
+                    {link.name}
+                  </span>
+                </div>
+              )}
+            </NavLink>
           ))}
 
-          <button onClick={toggleTheme} className="btn btn-sm bg-gradient-to-r from-indigo-500  to-cyan-400 text-white border-none shadow-md hover:shadow-xl transition-all duration-300 w-24">
+          <button
+            onClick={toggleTheme}
+            className="btn btn-sm bg-gradient-to-r from-indigo-500  to-cyan-400 text-white border-none shadow-md hover:shadow-xl transition-all duration-300 w-24"
+          >
             {theme === "light" ? "Dark" : "Light"}
           </button>
 
           {!user && (
             <>
-              <NavLink to="/login" className="btn bg-gradient-to-r from-indigo-500 to-cyan-500 text-white border-none" onClick={() => setMenuOpen(false)}>Login</NavLink>
-              <NavLink to="/register/employee" className="btn bg-gradient-to-r from-indigo-500 to-cyan-500 text-white border-none" onClick={() => setMenuOpen(false)}>Join Employee</NavLink>
-              <NavLink to="/register/hr" className="btn bg-gradient-to-r from-indigo-500 to-cyan-500 text-white border-none" onClick={() => setMenuOpen(false)}>Join HR</NavLink>
+              <NavLink
+                to="/login"
+                className="btn bg-gradient-to-r from-indigo-500 to-cyan-500 text-white border-none"
+                onClick={() => setMenuOpen(false)}
+              >
+                Login
+              </NavLink>
+              <NavLink
+                to="/register/employee"
+                className="btn bg-gradient-to-r from-indigo-500 to-cyan-500 text-white border-none"
+                onClick={() => setMenuOpen(false)}
+              >
+                Join Employee
+              </NavLink>
+              <NavLink
+                to="/register/hr"
+                className="btn bg-gradient-to-r from-indigo-500 to-cyan-500 text-white border-none"
+                onClick={() => setMenuOpen(false)}
+              >
+                Join HR
+              </NavLink>
             </>
           )}
 
           {user && (
             <>
               {user.role === "hr" ? (
-                <NavLink to="/dashboard/hr" className="btn bg-gradient-to-r from-indigo-500 to-cyan-500 text-white border-none" onClick={() => setMenuOpen(false)}>Dashboard</NavLink>
+                <NavLink
+                  to="/dashboard/hr"
+                  className="btn bg-gradient-to-r from-indigo-500 to-cyan-500 text-white border-none"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Dashboard
+                </NavLink>
               ) : (
-                <NavLink to="/dashboard/employee" className="btn bg-gradient-to-r from-indigo-500 to-cyan-500 text-white border-none" onClick={() => setMenuOpen(false)}>Dashboard</NavLink>
+                <NavLink
+                  to="/dashboard/employee"
+                  className="btn bg-gradient-to-r from-indigo-500 to-cyan-500 text-white border-none"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Dashboard
+                </NavLink>
               )}
-              <button onClick={logout} className="btn bg-gradient-to-r from-indigo-500 to-cyan-500 text-white border-none "> <LogOut size={18}></LogOut>Logout</button>
+              <button
+                onClick={handleLogout}
+                className="btn bg-gradient-to-r from-indigo-500 to-cyan-500 text-white border-none "
+              >
+                {" "}
+                <LogOut size={18}></LogOut>Logout
+              </button>
             </>
           )}
         </div>

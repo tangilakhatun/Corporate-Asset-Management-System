@@ -6,8 +6,7 @@ import AssetCard from "../../component/assetcard/AssetCard";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer as BarResponsive } from "recharts";
 
-const COLORS = ["#4f46e5", "#06b6d4"]; // Indigo & Cyan for Pie Chart
-
+const COLORS = ["#4f46e5", "#06b6d4"]; 
 const HRDashboardHome = () => {
   const [assets, setAssets] = useState([]);
   const [pieData, setPieData] = useState([]);
@@ -40,16 +39,10 @@ const HRDashboardHome = () => {
         { name: "Non-returnable", value: nonReturnable }
       ]);
 
-      const resRequests = await getRequests();
-      const assetCount = {};
-      resRequests.data.forEach(r => {
-        assetCount[r.assetName] = (assetCount[r.assetName] || 0) + 1;
-      });
-      const top5 = Object.entries(assetCount)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 5)
-        .map(([name, requests]) => ({ name, requests }));
-      setBarData(top5);
+     //  (Top 5 Requested Assets)
+    const resTop = await getTopRequestedAssets(); 
+    setBarData(resTop.data);
+
      
     } catch (err) {
       toast.error("Failed to fetch charts ❌");
@@ -58,17 +51,20 @@ const HRDashboardHome = () => {
   };
 
   const handleEdit = async (asset) => {
-    const newName = prompt("Enter new product name", asset.productName);
-    if (!newName) return;
-    try {
-      await updateAsset(asset._id, { ...asset, productName: newName });
-      toast.success("Asset updated successfully! 🎉");
-      fetchAssets();
-    } catch (err) {
-      toast.error("Failed to update asset ❌");
-      console.log(err);
-    }
-  };
+  const newName = prompt("Enter new product name", asset.productName);
+  if (!newName) return;
+
+  try {
+    
+    await updateAsset(asset._id, { productName: newName });
+    toast.success("Asset updated successfully! 🎉");
+    fetchAssets(); 
+  } catch (err) {
+    toast.error("Failed to update asset ❌");
+    console.log(err);
+  }
+};
+
 
   const handleDelete = async (asset) => {
     if (!window.confirm("Are you sure to delete this asset?")) return;

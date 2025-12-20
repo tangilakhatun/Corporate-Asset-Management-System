@@ -1,4 +1,4 @@
-import { NavLink, Outlet, Link } from "react-router";
+import { NavLink, Outlet, Link, useNavigate } from "react-router";
 import { useState } from "react";
 import {
   Menu,
@@ -15,10 +15,18 @@ import {
   Clock
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
+import toast from "react-hot-toast";
 
 const DeshboardEmployee = () => {
   const { user, logout } = useAuth();
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+  await logout();
+  toast.success("Logout successful");
+    window.location.href = "/";
+};
 
   return (
     <div className="min-h-screen bg-base-200">
@@ -58,7 +66,7 @@ const DeshboardEmployee = () => {
           </div>
 
           <button
-            onClick={logout}
+            onClick={handleLogout}
             className="btn btn-sm text-white border-none 
             bg-gradient-to-r from-indigo-500 to-cyan-400"
           >

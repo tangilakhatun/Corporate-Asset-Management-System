@@ -1,4 +1,5 @@
-const AssetCard = ({ asset, onUpdate, onDelete }) => {
+
+const AssetCard = ({ asset, onEdit, onDelete }) => {
   return (
     <div className="card bg-base-100 shadow-lg p-4">
       <img
@@ -6,6 +7,7 @@ const AssetCard = ({ asset, onUpdate, onDelete }) => {
         alt={asset.productName}
         className="w-full h-40 object-cover rounded"
       />
+
       <h3 className="text-lg font-semibold mt-2">{asset.productName}</h3>
       <p>Type: {asset.productType}</p>
       <p>Quantity: {asset.productQuantity}</p>
@@ -13,13 +15,14 @@ const AssetCard = ({ asset, onUpdate, onDelete }) => {
 
       <div className="flex gap-2 mt-2">
         <button
-          onClick={() => onUpdate(asset)}
+          onClick={() => onEdit(asset)}  
           className="btn btn-sm bg-gradient-to-r from-indigo-500 to-cyan-400 text-white"
         >
           Update
         </button>
+
         <button
-          onClick={() => onDelete(asset._id)}
+          onClick={() => onDelete(asset)}
           className="btn btn-sm bg-red-500 text-white"
         >
           Delete
@@ -30,3 +33,4 @@ const AssetCard = ({ asset, onUpdate, onDelete }) => {
 };
 
 export default AssetCard;
+

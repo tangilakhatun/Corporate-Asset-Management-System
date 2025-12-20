@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { getAssets, requestAsset } from "../../services/api";
+import { getAssets, requestAsset, getMyAssets } from "../../services/api";
 import toast from "react-hot-toast";
 import { Search } from "lucide-react";
 
-const RequestAsset = () => {
+const RequestAsset = ({ onRequestSuccess }) => {
   const [assets, setAssets] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedAsset, setSelectedAsset] = useState(null);
@@ -12,7 +12,6 @@ const RequestAsset = () => {
   const fetchAssets = async () => {
     try {
       const res = await getAssets();
-      // show only available assets
       const available = res.data.filter(a => a.availableQuantity > 0);
       setAssets(available);
     } catch (err) {
@@ -24,18 +23,37 @@ const RequestAsset = () => {
     fetchAssets();
   }, []);
 
-  const handleRequest = async () => {
-    if (!selectedAsset) return;
-    try {
-      await requestAsset(selectedAsset._id, note);
-      toast.success("Asset request sent");
-      setSelectedAsset(null);
-      setNote("");
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Request failed");
-    }
-  };
+  // const handleRequest = async () => {
+  //   if (!selectedAsset) return;
+  //   try {
+  //     await requestAsset(selectedAsset._id, note);
+  //     toast.success("Asset request sent");
+  //     setSelectedAsset(null);
+  //     setNote("");
 
+  //     fetchAssets(); // refresh available assets
+  //     if (onRequestSuccess) onRequestSuccess(); // refresh parent request list
+  //   } catch (err) {
+  //     toast.error(err.response?.data?.message || "Request failed");
+  //   }
+  // };
+const handleRequest = async () => {
+    if (!selectedAsset) return;
+
+    try {
+        const res = await requestAsset(selectedAsset._id, note);
+        console.log("Request Response:", res.data);
+        toast.success("Asset request sent");
+
+        setSelectedAsset(null);
+        setNote("");
+        fetchAssets(); 
+        if (onRequestSuccess) onRequestSuccess();
+    } catch (err) {
+        console.error("Request error:", err.response?.data);
+        toast.error(err.response?.data?.message || "Request failed");
+    }
+};
   const filteredAssets = assets.filter(a =>
     a.productName.toLowerCase().includes(search.toLowerCase())
   );

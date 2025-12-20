@@ -21,6 +21,7 @@ import MyTeam from "../pages/employee/MyTeam";
 import ProfileEmployee from "../pages/employee/ProfileEmployee";
 import EmployeeOverview from "../pages/employee/EmployeeOverview";
 import HRHome from "../pages/hr/HRHome";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -61,7 +62,7 @@ const router = createBrowserRouter([
   },
   {
     path:"/dashboard/hr",
-    element:<DeshboardHR></DeshboardHR>,
+    element:(<PrivateRoute allowedRoles={["hr"]}><DeshboardHR></DeshboardHR></PrivateRoute>),
     children:[
       {
         index:true,
@@ -97,7 +98,7 @@ const router = createBrowserRouter([
   },
   {
 path:"/dashboard/employee",
-element:<DeshboardEmployee></DeshboardEmployee>,
+element:(<PrivateRoute allowedRoles={["employee"]}><DeshboardEmployee></DeshboardEmployee></PrivateRoute>),
 children:[
   {
       index: true,

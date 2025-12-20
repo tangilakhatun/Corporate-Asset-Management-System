@@ -1,30 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router";
 import { Mail, Lock } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function Login() {
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     try {
       await login(email, password);
       toast.success("Login successful!");
-      navigate("/dashboard");
+      
     } catch (err) {
-      const errorMap = {
-        "auth/user-not-found": "User not found. Please register first.",
-        "auth/wrong-password": "Incorrect password. Try again.",
-        "auth/invalid-email": "Invalid email format.",
-      };
-      toast.error(errorMap[err.code] || "Something went wrong. Try again.");
+      console.error("Login error:", err);
+      toast.error(err.message || "Login failed");
+    } finally {
+      setLoading(false);
     }
   };
+
+ 
+  useEffect(() => {
+    if (user) {
+      if (user.role === "hr") navigate("/dashboard/hr", { replace: true });
+      else navigate("/dashboard/employee", { replace: true });
+    }
+  }, [user, navigate]);
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-base-200">
@@ -38,7 +48,8 @@ export default function Login() {
             placeholder="Email"
             className="grow"
             required
-            onChange={e => setEmail(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value.trim())}
           />
         </div>
 
@@ -49,12 +60,17 @@ export default function Login() {
             placeholder="Password"
             className="grow"
             required
-            onChange={e => setPassword(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value.trim())}
           />
         </div>
 
-        <button className="btn w-full text-white border-none bg-gradient-to-r from-indigo-500 to-cyan-400">
-          Login
+        <button
+          type="submit"
+          className="btn w-full text-white border-none bg-gradient-to-r from-indigo-500 to-cyan-400"
+          disabled={loading}
+        >
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
     </div>

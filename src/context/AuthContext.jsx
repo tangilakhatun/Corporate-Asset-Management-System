@@ -1,12 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { 
-    getAuth, 
-    signInWithEmailAndPassword, 
-    createUserWithEmailAndPassword,
-    signOut
-} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import app from "../firebase/Firebase";
-import { api } from "../services/api";
+import { api, fetchMe } from "../services/api";
 
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
@@ -14,96 +9,84 @@ export const useAuth = () => useContext(AuthContext);
 const auth = getAuth(app);
 
 export function AuthProvider({ children }) {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    // Firebase onAuthStateChanged
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(async (fUser) => {
-            if (fUser) {
-                try {
-                    // get JWT from backend
-                    const tokenRes = await api.post("/api/auth/firebase-login", { email: fUser.email });
-                    localStorage.setItem("token", tokenRes.data.token);
-
-                    // fetch user profile
-                    const profileRes = await api.get("/api/users/me");
-                    setUser(profileRes.data);
-                } catch (err) {
-                    console.error("Error fetching user profile:", err);
-                    setUser(null);
-                    localStorage.removeItem("token");
-                }
-            } else {
-                setUser(null);
-                localStorage.removeItem("token");
-            }
-            setLoading(false);
-        });
-        return () => unsubscribe();
-    }, []);
-
-    // Login
-    const login = async (email, password) => {
+ 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (fUser) => {
+      if (fUser && !user) {
         try {
-            await signInWithEmailAndPassword(auth, email, password);
+          // Backend JWT token
+          const tokenRes = await api.post("/api/auth/firebase-login", { email: fUser.email });
+          localStorage.setItem("token", tokenRes.data.token);
+
+          // Profile fetch
+          const profileRes = await fetchMe();
+          const data = profileRes.data;
+          setUser({ ...data, name: data.employeeName || data.name });
         } catch (err) {
-            // Firebase error codes mapping
-            const errorMap = {
-                "auth/user-not-found": "User not found",
-                "auth/wrong-password": "Incorrect password",
-                "auth/invalid-email": "Invalid email address",
-            };
-            throw new Error(errorMap[err.code] || "Something went wrong. Try again.");
+          console.error("Error fetching profile:", err);
+          setUser(null);
+          localStorage.removeItem("token");
         }
-    };
+      }
+      setLoading(false);
+    });
 
-    // Logout
-    const logout = () => signOut(auth);
+    return () => unsubscribe();
+  }, []);
 
-    // Register HR
-    const registerHR = async (data) => {
-        try {
-            await createUserWithEmailAndPassword(auth, data.email, data.password);
-            await api.post("/api/users/register/hr", data);
-        } catch (err) {
-            if (err.code) {
-                // Firebase errors
-                const errorMap = {
-                    "auth/email-already-in-use": "This email is already registered",
-                    "auth/invalid-email": "Invalid email address",
-                    "auth/weak-password": "Password is too weak (min 6 characters)",
-                };
-                throw new Error(errorMap[err.code] || "Something went wrong. Try again.");
-            }
-            // API errors
-            throw new Error(err.response?.data?.message || "Something went wrong. Try again.");
-        }
-    };
+ 
+  const login = async (email, password) => {
+    const emailTrim = email.trim();
+    const passwordTrim = password.trim();
 
-    // Register Employee
-    const registerEmployee = async (data) => {
-        try {
-            await createUserWithEmailAndPassword(auth, data.email, data.password);
-            await api.post("/api/users/register/employee", data);
-        } catch (err) {
-            if (err.code) {
-                const errorMap = {
-                    "auth/email-already-in-use": "This email is already registered",
-                    "auth/invalid-email": "Invalid email address",
-                    "auth/weak-password": "Password is too weak (min 6 characters)",
-                };
-                throw new Error(errorMap[err.code] || "Something went wrong. Try again.");
-            }
-            throw new Error(err.response?.data?.message || "Something went wrong. Try again.");
-        }
-    };
+    // Firebase login
+    await signInWithEmailAndPassword(auth, emailTrim, passwordTrim);
 
-    const value = { user, login, logout, registerHR, registerEmployee, loading };
+    //  Backend JWT token
+    const tokenRes = await api.post("/api/auth/firebase-login", { email: emailTrim });
+    localStorage.setItem("token", tokenRes.data.token);
 
-    return (
-        <AuthContext.Provider value={value}>
-            {children}
-        </AuthContext.Provider>
-    );
+    //  Fetch profile
+    const profileRes = await fetchMe();
+    const data = profileRes.data;
+    setUser({ ...data, name: data.employeeName || data.name });
+     return { ...data, name: data.employeeName || data.name };
+  };
+
+  // Logout
+  const logout = async () => {
+    await signOut(auth);
+    setUser(null);
+    localStorage.removeItem("token");
+  };
+
+  // Register Employee: Firebase + Backend
+  const registerEmployee = async (data) => {
+    const emailTrim = data.email.trim();
+    const passwordTrim = data.password.trim();
+
+    await createUserWithEmailAndPassword(auth, emailTrim, passwordTrim);
+
+   
+    await api.post("/api/users/register/employee", { ...data, email: emailTrim, password: passwordTrim });
+  };
+
+  // Register HR: Firebase + Backend
+  const registerHR = async (data) => {
+    const emailTrim = data.email.trim();
+    const passwordTrim = data.password.trim();
+
+    await createUserWithEmailAndPassword(auth, emailTrim, passwordTrim);
+
+    await api.post("/api/users/register/hr", { ...data, email: emailTrim, password: passwordTrim });
+  };
+
+  const value = { user,setUser, login, logout, registerEmployee, registerHR, loading };
+
+  if (loading) return <div>Loading...</div>;
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

@@ -2,11 +2,24 @@ import { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router";
 import { Menu, X, LayoutDashboard, User, Users, Plus, CreditCard, Home, LogOut } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
+import toast from "react-hot-toast";
 
 const DashboardHR = () => {
   const { user, logout, loading } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+
+ 
+
+  const handleLogout = async () => {
+    try {
+      await logout();          
+      toast.success("Logout successful! 🎉");
+        window.location.href = "/";          
+    } catch (err) {
+      toast.error("Logout failed. Try again.");
+    }
+  };
 
   if (loading)
     return <div className="flex justify-center items-center h-screen">Loading...</div>;
@@ -71,7 +84,7 @@ const DashboardHR = () => {
               className="w-10 h-10 rounded-full"
             />
             <button
-            onClick={logout}
+            onClick={handleLogout}
             className="btn btn-sm text-white border-none 
             bg-gradient-to-r from-indigo-500 to-cyan-400"
           >
