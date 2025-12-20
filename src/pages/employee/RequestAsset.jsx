@@ -23,20 +23,6 @@ const RequestAsset = ({ onRequestSuccess }) => {
     fetchAssets();
   }, []);
 
-  // const handleRequest = async () => {
-  //   if (!selectedAsset) return;
-  //   try {
-  //     await requestAsset(selectedAsset._id, note);
-  //     toast.success("Asset request sent");
-  //     setSelectedAsset(null);
-  //     setNote("");
-
-  //     fetchAssets(); // refresh available assets
-  //     if (onRequestSuccess) onRequestSuccess(); // refresh parent request list
-  //   } catch (err) {
-  //     toast.error(err.response?.data?.message || "Request failed");
-  //   }
-  // };
 const handleRequest = async () => {
     if (!selectedAsset) return;
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getMyTeam } from "../../services/api"; 
 import toast from "react-hot-toast";
 import { Users, Cake } from "lucide-react";
+import Loader from "../../component/loadingSpiner/Loader";
 
 const MyTeam = () => {
   const [affiliations, setAffiliations] = useState([]);
@@ -61,7 +62,7 @@ const MyTeam = () => {
       </div>
 
       {/* Loading State */}
-      {loading && <p className="text-gray-500">Loading team...</p>}
+      {loading && <Loader></Loader>}
 
       {/* Employee Grid */}
       {!loading && filteredEmployees.length > 0 && (

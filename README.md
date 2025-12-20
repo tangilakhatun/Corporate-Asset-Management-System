@@ -1,16 +1,99 @@
-# React + Vite
+# 🌌 AssetVerse
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Corporate Asset Management System**  
 
-Currently, two official plugins are available:
+[ Live Demo]()
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Project Overview
+**AssetVerse** is a full-stack B2B HR & Asset Management platform designed for companies to efficiently track and manage physical assets (laptops, mouse, keyboards, etc.) and employee assignments. It streamlines asset assignment, approvals, returns, and employee affiliations while providing clear visibility and reducing HR overhead.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🎯 Purpose
+- Prevent asset loss and improve accountability  
+- Streamline asset request, approval, and return workflows  
+- Provide visibility into company inventory  
+- Support employees affiliated with multiple companies  
+- Allow HR managers to manage assets, employees, and subscription packages  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## ⭐ Key Features
+
+### HR Manager Dashboard
+- View, add, edit, and delete company assets  
+- Approve or reject employee asset requests  
+- Auto-affiliate employees on first request  
+- Upgrade packages with Stripe payment integration  
+- Analytics with Recharts: Pie & Bar Charts  
+
+### Employee Dashboard
+- View all assigned assets across companies  
+- Request new assets with notes  
+- Return returnable assets  
+- View team members by company  
+- Profile management with image upload  
+
+### Authentication & Security
+- Email/password login & optional Google login  
+- JWT token-based authentication  
+- Role-based protected routes for HR & Employee  
+
+### Other Features
+- Fully responsive design (mobile, tablet, desktop)  
+- DaisyUI components for professional UI  
+- Server-side pagination for asset/employee lists  
+
+---
+
+## 🧑‍💼 User Roles & Permissions
+| Role | Permissions |
+|------|-------------|
+| HR Manager | Manage assets & employees, approve/reject requests, upgrade packages, view analytics, direct assignments |
+| Employee | View assigned assets, request assets, return items, view team, update profile |
+
+---
+
+## 📄 Pages & Layout
+
+**Public Pages:**  
+- Home, Login, Registration (Employee & HR), 404 Error  
+
+**Employee Dashboard:**  
+- My Assets, Request Asset, My Team, Profile  
+
+**HR Manager Dashboard:**  
+- Asset List, Add Asset, All Requests, Employee List, Upgrade Package, Profile  
+
+---
+
+## 🗄️ Database Schema (Collections)
+
+- `users`  
+- `employeeAffiliations`  
+- `assets`  
+- `requests`  
+- `assignedAssets`  
+- `packages`  
+- `payments`  
+
+---
+
+## 🛠️ Technologies & Packages
+- **Frontend:** React, React Router, DaisyUI, Framer Motion, react-to-print,sweper 
+- **Backend:** Node.js, Express, MongoDB, Mongoose  
+- **Authentication:** Firebase Auth / JWT  
+- **Payment:** Stripe  
+- **Charts & Analytics:** Recharts  
+- **Utilities:** Axios, dotenv, bcrypt, nodemon  
+
+---
+
+## ⚡ Setup Instructions
+
+1. **Clone the repositories:**  
+```bash
+git clone https://github.com/tangilakhatun/Corporate-Asset-Management-System.git
+git clone https://github.com/tangilakhatun/assetverse-server-site.git

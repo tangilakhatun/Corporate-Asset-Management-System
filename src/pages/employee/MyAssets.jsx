@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getMyAssets, returnAsset } from "../../services/api";
 import toast from "react-hot-toast";
 import { Search, Printer, RotateCcw } from "lucide-react";
+import Loader from "../../component/loadingSpiner/Loader";
 
 const MyAssets = () => {
   const [assets, setAssets] = useState([]);
@@ -80,9 +81,7 @@ const MyAssets = () => {
 
       {/* Asset Table */}
       {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <span className="loading loading-spinner loading-lg"></span>
-        </div>
+        <Loader></Loader>
       ) : (
         <div className="overflow-x-auto bg-base-100 rounded shadow">
           <table className="table w-full">
