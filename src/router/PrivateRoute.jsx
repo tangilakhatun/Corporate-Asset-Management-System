@@ -1,11 +1,12 @@
 
 import { Navigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
+import Loader from "../component/loadingSpiner/Loader";
 
 const PrivateRoute = ({ children, allowedRoles }) => {
   const { user, loading } = useAuth();
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div><Loader></Loader></div>;
 
   if (!user) return <Navigate to="/login" replace />;
 

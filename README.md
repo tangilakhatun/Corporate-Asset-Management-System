@@ -2,7 +2,7 @@
 
 **Corporate Asset Management System**  
 
-[ Live Demo]()
+[ Live Demo](https://preeminent-centaur-f02dcf.netlify.app)
 
 ---
 

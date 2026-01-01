@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router";
-import { Mail, Lock } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff } from "lucide-react"; // Eye icon import
 import toast from "react-hot-toast";
 
 export default function Login() {
@@ -11,6 +11,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // Toggle state
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -19,7 +20,6 @@ export default function Login() {
     try {
       await login(email, password);
       toast.success("Login successful!");
-      
     } catch (err) {
       console.error("Login error:", err);
       toast.error(err.message || "Login failed");
@@ -28,7 +28,6 @@ export default function Login() {
     }
   };
 
- 
   useEffect(() => {
     if (user) {
       if (user.role === "hr") navigate("/dashboard/hr", { replace: true });
@@ -53,16 +52,22 @@ export default function Login() {
           />
         </div>
 
-        <div className="input input-bordered flex items-center gap-2 mb-4">
+        <div className="input input-bordered flex items-center gap-2 mb-4 relative">
           <Lock size={18} />
           <input
-            type="password"
+            type={showPassword ? "text" : "password"} // Toggle password type
             placeholder="Password"
-            className="grow"
+            className="grow pr-10" // Give space for the eye icon
             required
             value={password}
             onChange={(e) => setPassword(e.target.value.trim())}
           />
+          <span
+            className="absolute right-3 cursor-pointer"
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+          </span>
         </div>
 
         <button

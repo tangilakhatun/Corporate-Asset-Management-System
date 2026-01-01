@@ -47,58 +47,57 @@ const loadEmployees = async () => {
   }
 
   return (
-    <div className="p-4 bg-base-200 min-h-screen">
+    <div className="flex-1 overflow-x-auto overflow-y-auto p-4 bg-base-200 min-h-screen">
       <h1 className="text-2xl font-bold mb-4">My Employees</h1>
 
       <div className="overflow-x-auto bg-base-100 shadow rounded-lg">
-        <table className="table w-full">
+        <table className="table table-zebra w-full min-w-[950px] md:min-w-[1100px] lg:min-w-[1200px] table-zebra">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Company</th>
-              <th>Status</th>
-              <th>Joined</th>
-              <th>Action</th>
+              <th className="whitespace-nowrap">Name</th>
+              <th className="whitespace-nowrap">Email</th>
+              <th className="whitespace-nowrap">Company</th>
+              <th className="whitespace-nowrap">Status</th>
+              <th className="whitespace-nowrap">Joined</th>
+              <th className="whitespace-nowrap">Action</th>
             </tr>
           </thead>
-
           <tbody>
-            {employees.length === 0 && (
+            {employees.length === 0 ? (
               <tr>
-                <td colSpan="6" className="text-center py-6">
+                <td colSpan={6} className="text-center py-6">
                   No employees found
                 </td>
               </tr>
+            ) : (
+              employees.map((emp) => (
+                <tr key={emp._id}>
+                  <td className=" max-w-[120px] md:max-w-[200px] lg:max-w-none whitespace-nowrap font-semibold">{emp.name}</td>
+                  <td className=" max-w-[120px] md:max-w-[200px] lg:max-w-none whitespace-nowrap">{emp.employeeEmail}</td>
+                  <td>
+                    <span className="badge badge-outline block w-full text-center break-words">
+                      {emp.companyName || "—"}
+                    </span>
+                  </td>
+                  <td>
+                    <span className={`badge ${emp.status === "active" ? "badge-success" : "badge-error"}`}>
+                      {emp.status}
+                    </span>
+                  </td>
+                  <td className="whitespace-nowrap">{emp.affiliationDate ? new Date(emp.affiliationDate).toLocaleDateString() : "—"}</td>
+                  <td>
+                    {emp.status === "active" && (
+                      <button
+                        onClick={() => handleRemove(emp.employeeEmail)}
+                        className="btn btn-xs btn-error text-white"
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))
             )}
-
-            {employees.map(emp => (
-              <tr key={emp._id}>
-                <td className="font-semibold">{emp.name}</td>
-                <td>{emp.employeeEmail}</td>
-                <td>
-                  <span className="badge badge-outline">
-                    {emp.companyName || "—"}
-                  </span>
-                </td>
-                <td>
-                  <span className={`badge ${emp.status === "active" ? "badge-success" : "badge-error"}`}>
-                    {emp.status}
-                  </span>
-                </td>
-                <td>{emp.affiliationDate ? new Date(emp.affiliationDate).toLocaleDateString() : "—"}</td>
-                <td>
-                  {emp.status === "active" && (
-                    <button
-                      onClick={() => handleRemove(emp.employeeEmail)}
-                      className="btn btn-xs btn-error text-white"
-                    >
-                      Remove
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
           </tbody>
         </table>
       </div>

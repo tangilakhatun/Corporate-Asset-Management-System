@@ -95,7 +95,7 @@ const DashboardHR = () => {
         </div>
 
         {/* Dynamic content */}
-        <div className="flex-1 overflow-auto p-4 bg-base-200">
+        <div className="flex-1 overflow-y-auto overflow-x-auto p-4 bg-base-200 min-h-screen">
           <Outlet />
         </div>
       </div>

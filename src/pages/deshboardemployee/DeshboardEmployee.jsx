@@ -159,7 +159,7 @@ const DeshboardEmployee = () => {
         )}
 
         {/* MAIN CONTENT */}
-        <main className="flex-1 p-4 md:p-6 md:ml-64">
+        <main className="flex-1 p-4 md:p-6 ml-5 md:ml-64 w-full max-w-full overflow-x-visible overflow-y-auto">
           {/* Employee Dashboard Heading */}
           <div className="flex items-center gap-3 mb-6">
             <Sparkles
@@ -174,7 +174,7 @@ const DeshboardEmployee = () => {
             >
               Employee Dashboard
             </h1>
-          </div>
+          </div> 
 
           {/* RENDER CHILD PAGES */}
           <Outlet />

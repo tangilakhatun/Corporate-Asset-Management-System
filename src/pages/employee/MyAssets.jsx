@@ -46,7 +46,7 @@ const MyAssets = () => {
   return (
     <div className="p-4">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
+      <div className="flex flex-col w-full overflow-x-auto md:flex-row md:items-center md:justify-between gap-3 mb-4">
         <h2 className="text-2xl font-bold">My Assets</h2>
         <div className="flex gap-2 flex-wrap">
           <div className="flex items-center border rounded px-2">
@@ -84,21 +84,21 @@ const MyAssets = () => {
         <Loader></Loader>
       ) : (
         <div className="overflow-x-auto bg-base-100 rounded shadow">
-          <table className="table w-full">
+          <table className="table table-zebra w-full min-w-[950px]">
             <thead>
               <tr>
-                <th>Asset</th>
-                <th>Type</th>
-                <th>Company</th>
-                <th>Assigned</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th className="whitespace-nowrap">Asset</th>
+                <th className="whitespace-nowrap">Type</th>
+                <th className="whitespace-nowrap">Company</th>
+                <th className="whitespace-nowrap">Assigned</th>
+                <th className="whitespace-nowrap">Status</th>
+                <th className="whitespace-nowrap">Action</th>
               </tr>
             </thead>
             <tbody>
               {filteredAssets.map((asset) => (
                 <tr key={asset._id}>
-                  <td className="flex items-center gap-2">
+                  <td className="flex whitespace-nowrap text-sm md:text-base items-center gap-2">
                     <img
                       src={asset.assetImage?.trim() || "https://i.ibb.co/3Y1vZpB/asset.png"}
                       alt={asset.assetName || "Asset"}
@@ -109,9 +109,9 @@ const MyAssets = () => {
                     />
                     {asset.assetName || "Unknown"}
                   </td>
-                  <td>{asset.assetType || "N/A"}</td>
-                  <td>{asset.companyName || "N/A"}</td>
-                  <td>
+                  <td className="whitespace-nowrap">{asset.assetType || "N/A"}</td>
+                  <td className="whitespace-nowrap">{asset.companyName || "N/A"}</td>
+                  <td className="whitespace-nowrap">
                     {asset.assignmentDate
                       ? new Date(asset.assignmentDate).toLocaleDateString()
                       : "N/A"}
@@ -125,7 +125,7 @@ const MyAssets = () => {
                       {asset.status}
                     </span>
                   </td>
-                  <td>
+                  <td className="whitespace-nowrap">
                     {asset.assetType === "Returnable" && asset.status === "assigned" && (
                       <button
                         onClick={() => handleReturn(asset._id)}
@@ -140,7 +140,7 @@ const MyAssets = () => {
 
               {filteredAssets.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="text-center py-6">
+                  <td colSpan={6} className="text-center whitespace-nowrap py-6">
                     No assets found
                   </td>
                 </tr>
